@@ -6,20 +6,26 @@
 package telas;
 
 import java.awt.event.KeyEvent;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import usuario.Usuario;
 import usuario.UsuarioDAO;
 
 public class TelaCadastroUsuario extends javax.swing.JFrame {
-
+    
     Usuario usuario = new Usuario();
     UsuarioDAO usuarioDAO;
     Usuario usuario2;
-
+    
     public TelaCadastroUsuario(Usuario usuario) {
-        initComponents();
+        
         this.usuario2 = usuario;
         usuarioDAO = new UsuarioDAO();
+        initComponents();
     }
 
     /**
@@ -218,7 +224,38 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+//    private String senhaCripto(String senha) {
+//        MessageDigest m = null;
+//        String s = senha;
+//        try {
+//            m = MessageDigest.getInstance("MD5");
+//        } catch (NoSuchAlgorithmException ex) {
+//            Logger.getLogger(TelaCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        m.update(s.getBytes(), 0, s.length());
+//        return new BigInteger(1, m.digest()).toString(16);
+//    }
+    
+//    private String converteSenhaMD5(String senha) throws NoSuchAlgorithmException {
+//        MessageDigest md = MessageDigest.getInstance("MD5");
+// 
+//        BigInteger hash = new BigInteger(1, md.digest(senha.getBytes()));
+// 
+//        return String.format("%32x;", hash);
+//    }
+    
+    private String md5(String senha) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            BigInteger hash = new BigInteger(1, md.digest(senha.getBytes()));
+            return ((String) hash.toString(16));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+    
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
         if (usuario2.getLogin().equals(txtLogin.getText())) {
@@ -226,15 +263,16 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             txtLogin.setText("");
             txtLogin.requestFocus();
         } else {
-            preencherDadosUsuario();
+            try {
+                preencherDadosUsuario();
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(TelaCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
-        
-
-
     }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void preencherDadosUsuario() {
+    
+    private void preencherDadosUsuario() throws NoSuchAlgorithmException {
         if (!(txtNome.getText().isEmpty() || txtEmail.getText().isEmpty()
                 || txtSetor.getSelectedItem().equals("---") || txtLogin.getText().isEmpty()
                 || txtSenha.getText().isEmpty())) {
@@ -242,7 +280,9 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             usuario.setEmail(txtEmail.getText());
             usuario.setFuncao(txtSetor.getSelectedItem().toString());
             usuario.setLogin(txtLogin.getText());
-            usuario.setSenha(txtSenha.getText());
+            String senha = md5(txtSenha.getText());
+            
+            usuario.setSenha(senha);
             //usuarioDAO.salvar(usuario2);
 
             if (usuario.getId() != 0) {
@@ -255,15 +295,15 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                 usuarioDAO.salvar(usuario);
                 JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
             }
-
+            
             limparCampos();
-
+            
         } else {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
         }
-
+        
     }
-
+    
     public void atualizarConsulta() {
         //AQUI
         txtNome.setText(usuario.getNome());
@@ -272,7 +312,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         txtLogin.setText(usuario.getLogin());
         txtSenha.setText(usuario.getSenha());
     }
-
+    
     private void limparCampos() {
         txtNome.setText("");
         txtEmail.setText("");
