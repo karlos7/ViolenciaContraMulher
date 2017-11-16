@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import usuario.Usuario;
 import usuario.UsuarioDAO;
+import util.Criptografia;
 
 public class TelaCadastroUsuario extends javax.swing.JFrame {
     
@@ -244,20 +245,8 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 // 
 //        return String.format("%32x;", hash);
 //    }
-    
-    private String md5(String senha) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            BigInteger hash = new BigInteger(1, md.digest(senha.getBytes()));
-            return ((String) hash.toString(16));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-    
+       
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
         if (usuario2.getLogin().equals(txtLogin.getText())) {
             JOptionPane.showMessageDialog(null, "Login " + txtLogin.getText() + " já cadastrado!");
             txtLogin.setText("");
@@ -280,8 +269,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             usuario.setEmail(txtEmail.getText());
             usuario.setFuncao(txtSetor.getSelectedItem().toString());
             usuario.setLogin(txtLogin.getText());
-            String senha = md5(txtSenha.getText());
-            
+            String senha = Criptografia.md5(txtSenha.getText());
             usuario.setSenha(senha);
             //usuarioDAO.salvar(usuario2);
 

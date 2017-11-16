@@ -13,12 +13,13 @@ import javax.swing.JOptionPane;
 import usuario.Usuario;
 import usuario.UsuarioDAO;
 import util.BarraProgresso;
+import util.Criptografia;
 
 /**
  *
  * @author Katyeudo
  */
-public class TelaLogin extends javax.swing.JFrame implements Serializable{
+public class TelaLogin extends javax.swing.JFrame implements Serializable {
 
     Usuario usuario;
     UsuarioDAO usuarioDAO;
@@ -174,7 +175,10 @@ public class TelaLogin extends javax.swing.JFrame implements Serializable{
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
 
-        usuario = usuarioDAO.autenticar(txtLogin.getText(), new String(txtSenha.getPassword()));
+        String crip = Criptografia.md5(txtSenha.getText());
+
+        usuario = usuarioDAO.autenticar(txtLogin.getText(), crip);
+
         if ((usuario == null) || (txtLogin.getText().equals("")) || (txtSenha.getText().equals(""))) {
             JOptionPane.showMessageDialog(null, "Campos inválidos!");
             limparCampos();
@@ -216,10 +220,10 @@ public class TelaLogin extends javax.swing.JFrame implements Serializable{
             naoDalto();
             clicou = false;
         }
-        
+
     }//GEN-LAST:event_btnDalActionPerformed
 
-    private void dalto(){
+    private void dalto() {
         labelLogin.setIcon(new ImageIcon(getClass().getResource("/img/LoginDAO.png")));
         labelIcone.setIcon(new ImageIcon(getClass().getResource("/img/logodao.png")));
         labelFundo.setIcon(new ImageIcon(getClass().getResource("/img/fundoLogin.png")));
@@ -230,22 +234,22 @@ public class TelaLogin extends javax.swing.JFrame implements Serializable{
         btnSair.setForeground(Color.white);
         btnSair.setBackground(Color.black);
         btnSair.setIcon(new ImageIcon(getClass().getResource("/img/sairw.png")));
-        
+
         lblLogin.setIcon(new ImageIcon(getClass().getResource("/img/Campo7.png")));
         lblSenha.setIcon(new ImageIcon(getClass().getResource("/img/Campo7.png")));
-        txtLogin.setBackground(new Color(32,30,30));
+        txtLogin.setBackground(new Color(32, 30, 30));
         txtLogin.setForeground(Color.white);
-        txtSenha.setBackground(new Color(32,30,30));
+        txtSenha.setBackground(new Color(32, 30, 30));
         txtSenha.setForeground(Color.white);
         lblNomeLogin.setForeground(Color.white);
         lblNomeSenha.setForeground(Color.white);
-        
+
         btnDal.setIcon(new ImageIcon(getClass().getResource("/img/olhow.png")));
-        btnDal.setBackground(new Color(255,246,141));
-       
+        btnDal.setBackground(new Color(255, 246, 141));
+
     }
-    
-    private void naoDalto(){
+
+    private void naoDalto() {
         labelLogin.setIcon(new ImageIcon(getClass().getResource("/img/Login.png")));
         labelIcone.setIcon(new ImageIcon(getClass().getResource("/img/logomarca_ligue180_2015(1)-2.png")));
         labelFundo.setIcon(new ImageIcon(getClass().getResource("/img/fundoLogin2.png")));
@@ -256,7 +260,7 @@ public class TelaLogin extends javax.swing.JFrame implements Serializable{
         btnSair.setForeground(Color.black);
         btnSair.setBackground(Color.white);
         btnSair.setIcon(new ImageIcon(getClass().getResource("/img/sairb.png")));
-        
+
         lblLogin.setIcon(new ImageIcon(getClass().getResource("/img/Campo5.png")));
         lblSenha.setIcon(new ImageIcon(getClass().getResource("/img/Campo5.png")));
         txtLogin.setBackground(Color.white);
@@ -265,11 +269,11 @@ public class TelaLogin extends javax.swing.JFrame implements Serializable{
         txtSenha.setForeground(Color.black);
         lblNomeLogin.setForeground(Color.black);
         lblNomeSenha.setForeground(Color.black);
-        
+
         btnDal.setIcon(new ImageIcon(getClass().getResource("/img/olho.png")));
-        btnDal.setBackground(new Color(67,45,119));
+        btnDal.setBackground(new Color(67, 45, 119));
     }
-    
+
     private void btnDalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDalMouseClicked
 
     }//GEN-LAST:event_btnDalMouseClicked
