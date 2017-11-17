@@ -176,7 +176,6 @@ public class TelaLogin extends javax.swing.JFrame implements Serializable {
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
 
         String crip = Criptografia.md5(txtSenha.getText());
-
         usuario = usuarioDAO.autenticar(txtLogin.getText(), crip);
 
         if ((usuario == null) || (txtLogin.getText().equals("")) || (txtSenha.getText().equals(""))) {
