@@ -5,9 +5,12 @@
  */
 package delegacia;
 
+import creas.Creas;
 import hospital.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import javax.swing.table.AbstractTableModel;
 import vitima.Vitima;
 
@@ -17,16 +20,18 @@ import vitima.Vitima;
  */
 public class DelegaciaTableModel extends AbstractTableModel {
 
-    private List<Delegacia> delegacias = new ArrayList<>();
+    //private List<Delegacia> delegacias = new ArrayList<>();
+    private Queue<Delegacia> delegacias2 = new LinkedList<>();
     private String[] colunas = {"ID", "Tipo de Violência", "Penetração", "Envolvidos", "Relação", "Sexo Autor", "Uso de Álcool"};
 
     public DelegaciaTableModel(List<Delegacia> delegacias) {
-        this.delegacias = delegacias;
+        delegacias2.addAll(delegacias);
+        //this.delegacias = delegacias;
     }
 
     @Override
     public int getRowCount() {
-        return delegacias.size();
+        return delegacias2.size();
     }
 
     @Override
@@ -36,7 +41,10 @@ public class DelegaciaTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Delegacia delegacia = this.delegacias.get(rowIndex);
+        List<Delegacia> delegaciasList = new ArrayList<>();
+        delegaciasList.addAll(delegacias2);
+        
+        Delegacia delegacia = delegaciasList.get(rowIndex);
 
         switch (columnIndex) {
             case 0:
