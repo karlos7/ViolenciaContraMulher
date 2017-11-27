@@ -9,6 +9,7 @@ import creas.Creas;
 import creas.CreasDAO;
 import creas.CreasTableModel;
 import java.awt.Font;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -37,7 +38,6 @@ public class ConsultarFichaNotificacaoCreas extends javax.swing.JFrame {
         
         JTableHeader cabecalho = tabelaCreas.getTableHeader();
         cabecalho.setFont(new Font("Tahoma", Font.BOLD, 15));
-        
         CreasTableModel ctm = new CreasTableModel(creasDAO.listarCreas());
         tabelaCreas.setModel(ctm);
         tabelaCreas.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);

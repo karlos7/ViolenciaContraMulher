@@ -2,6 +2,7 @@ package creas;
 
 import delegacia.*;
 import java.util.List;
+import java.util.Queue;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;

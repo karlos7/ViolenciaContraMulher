@@ -8,7 +8,11 @@ package creas;
 import delegacia.*;
 import hospital.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 import javax.swing.table.AbstractTableModel;
 import vitima.Vitima;
 
@@ -18,16 +22,18 @@ import vitima.Vitima;
  */
 public class CreasTableModel extends AbstractTableModel {
 
-    private List<Creas> creas = new ArrayList<>();
+    
+    private Set<Creas> creas2 = new HashSet<>();
     private String[] colunas = {"ID", "Encaminhamento", "Circunstância da Lesão", "Classificação Final"};
 
     public CreasTableModel(List<Creas> creas) {
-        this.creas = creas;
+        creas2.addAll(creas);
+        //this.creas2 = (Set<Creas>) creas;
     }
 
     @Override
     public int getRowCount() {
-        return creas.size();
+        return creas2.size();
     }
 
     @Override
@@ -37,7 +43,10 @@ public class CreasTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Creas creas = this.creas.get(rowIndex);
+        List<Creas> creasList = new ArrayList<>();
+        creasList.addAll(creas2);
+        
+        Creas creas = creasList.get(rowIndex);
 
         switch (columnIndex) {
             case 0:
