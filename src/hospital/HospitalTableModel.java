@@ -5,7 +5,9 @@
  */
 package hospital;
 
+import delegacia.Delegacia;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import vitima.Vitima;
@@ -17,16 +19,18 @@ import vitima.Vitima;
 public class HospitalTableModel extends AbstractTableModel {
     
     
-    private List<Hospital> hospital = new ArrayList<>();
+    //private List<Hospital> hospital = new ArrayList<>();
+    private LinkedList<Hospital> hospital2 = new LinkedList<>();
+    
     private String[] colunas = {"ID", "Consequência", "Procedimento", "Evolução"};
 
     public HospitalTableModel(List<Hospital> hospital) {
-        this.hospital = hospital;
+        this.hospital2.addAll(hospital);
     }
 
     @Override
     public int getRowCount() {
-        return hospital.size();
+        return hospital2.size();
     }
 
     @Override
@@ -36,7 +40,11 @@ public class HospitalTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Hospital hospital = this.hospital.get(rowIndex);
+        
+        List<Hospital> hospitalList = new ArrayList<>();
+        hospitalList.addAll(hospital2);
+        
+        Hospital hospital = hospitalList.get(rowIndex);
         String tipoConsequencia = hospital.getConsequencias();
         if (tipoConsequencia.equalsIgnoreCase("Outros")) {
             tipoConsequencia = hospital.getHospitalOutroQual();
