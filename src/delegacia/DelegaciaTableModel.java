@@ -20,18 +20,16 @@ import vitima.Vitima;
  */
 public class DelegaciaTableModel extends AbstractTableModel {
 
-    //private List<Delegacia> delegacias = new ArrayList<>();
-    private Queue<Delegacia> delegacias2 = new LinkedList<>();
+    private Queue<Delegacia> delegacias = new LinkedList<>();
     private String[] colunas = {"ID", "Tipo de Violência", "Penetração", "Envolvidos", "Relação", "Sexo Autor", "Uso de Álcool"};
 
     public DelegaciaTableModel(List<Delegacia> delegacias) {
-        delegacias2.addAll(delegacias);
-        //this.delegacias = delegacias;
+        this.delegacias.addAll(delegacias);
     }
 
     @Override
     public int getRowCount() {
-        return delegacias2.size();
+        return delegacias.size();
     }
 
     @Override
@@ -42,7 +40,7 @@ public class DelegaciaTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         List<Delegacia> delegaciasList = new ArrayList<>();
-        delegaciasList.addAll(delegacias2);
+        delegaciasList.addAll(delegacias);
         
         Delegacia delegacia = delegaciasList.get(rowIndex);
 

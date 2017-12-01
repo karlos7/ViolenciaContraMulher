@@ -23,17 +23,16 @@ import vitima.Vitima;
 public class CreasTableModel extends AbstractTableModel {
 
     
-    private Set<Creas> creas2 = new HashSet<>();
+    private Set<Creas> creas = new HashSet<>();
     private String[] colunas = {"ID", "Encaminhamento", "Circunstância da Lesão", "Classificação Final"};
 
     public CreasTableModel(List<Creas> creas) {
-        creas2.addAll(creas);
-        //this.creas2 = (Set<Creas>) creas;
+        this.creas.addAll(creas);
     }
 
     @Override
     public int getRowCount() {
-        return creas2.size();
+        return creas.size();
     }
 
     @Override
@@ -44,7 +43,7 @@ public class CreasTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         List<Creas> creasList = new ArrayList<>();
-        creasList.addAll(creas2);
+        creasList.addAll(creas);
         
         Creas creas = creasList.get(rowIndex);
 

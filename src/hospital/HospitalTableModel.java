@@ -18,19 +18,16 @@ import vitima.Vitima;
  */
 public class HospitalTableModel extends AbstractTableModel {
     
-    
-    //private List<Hospital> hospital = new ArrayList<>();
-    private LinkedList<Hospital> hospital2 = new LinkedList<>();
-    
+    private LinkedList<Hospital> hospital = new LinkedList<>();
     private String[] colunas = {"ID", "Consequência", "Procedimento", "Evolução"};
 
     public HospitalTableModel(List<Hospital> hospital) {
-        this.hospital2.addAll(hospital);
+        this.hospital.addAll(hospital);
     }
 
     @Override
     public int getRowCount() {
-        return hospital2.size();
+        return hospital.size();
     }
 
     @Override
@@ -42,7 +39,7 @@ public class HospitalTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         
         List<Hospital> hospitalList = new ArrayList<>();
-        hospitalList.addAll(hospital2);
+        hospitalList.addAll(hospital);
         
         Hospital hospital = hospitalList.get(rowIndex);
         String tipoConsequencia = hospital.getConsequencias();
