@@ -18,7 +18,7 @@ import vitima.Vitima;
  */
 public class HospitalTableModel extends AbstractTableModel {
     
-    private LinkedList<Hospital> hospital = new LinkedList<>();
+    private List<Hospital> hospital = new LinkedList<>();
     private String[] colunas = {"ID", "Consequência", "Procedimento", "Evolução"};
 
     public HospitalTableModel(List<Hospital> hospital) {

@@ -9,6 +9,7 @@ import delegacia.*;
 import hospital.*;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -23,7 +24,7 @@ import vitima.Vitima;
 public class CreasTableModel extends AbstractTableModel {
 
     
-    private Set<Creas> creas = new HashSet<>();
+    private Set<Creas> creas = new LinkedHashSet<>();
     private String[] colunas = {"ID", "Encaminhamento", "Circunstância da Lesão", "Classificação Final"};
 
     public CreasTableModel(List<Creas> creas) {
